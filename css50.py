@@ -1,5 +1,5 @@
 from random import choice
-import cowsay
+import pytest
 
 
 def name():
@@ -65,3 +65,73 @@ def try_random():
 
 def flip_endless() -> str:
     return choice(["heads", "tails"])
+
+
+## Testing
+
+
+def main_():
+    x = int(input("What's x? "))
+    print("x squared is ", square(x))
+
+
+def square(n):
+    return n * n
+
+
+def test_square_old():
+    if square(2) != 4:
+        print("Error: 2 squared was not 4")
+    if square(3) != 9:
+        print("Error: Square of 3 was not 9")
+
+
+def test_square():
+    try:
+        assert square(2) == 4
+    except AssertionError:
+        print("Error: 2 squared was not 4")
+
+    try:
+        assert square(3) == 9
+    except AssertionError:
+        print("Error: 2 squared was not 4")
+
+
+# using pytest
+def test_pytestsquare():
+    assert square(2) == 4
+    assert square(3) == 9
+
+
+def test_zero():
+    assert square(0) == 0
+
+
+def test_negative():
+    assert square(-4) == 16
+
+
+def test_str():
+    with pytest.raises(TypeError):
+        square("Cat")
+
+
+def inputsio():
+    with open("names.txt", "a") as file:
+        name = input("What's your name? ")
+        file.write(f"{name}\n")
+
+    with open("names.txt", "r") as file:
+        lines = file.readlines()
+
+    for line in lines:
+        print("Hello,", line.rstrip())
+
+
+def inputsorted():
+    names = []
+    with open('names.txt') as file:
+        for line in sorted(file):
+            print(line.rstrip())
+        
